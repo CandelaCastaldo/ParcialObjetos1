@@ -1,0 +1,117 @@
+import plantas.*
+import parcelas.*
+
+describe "test plantas"{
+	const menta = new Menta(anioObtencionSemilla=2007,altura=1)
+	const soja = new Soja(anioObtencionSemilla=2009,altura=0.6)
+	const quinoa1 = new Quinoa(anioObtencionSemilla=2010,altura=0.5,horasDeSolToleradas=12)
+	const quinoa2 = new Quinoa(anioObtencionSemilla=2001,altura=0.5,horasDeSolToleradas=9)
+	const sojaTrans = new SojaTransgenica(anioObtencionSemilla=2008,altura=2)
+	const hierbabuena = new Hierbabuena(anioObtencionSemilla=2007,altura=1)
+	
+	const parcelaEco = new ParcelaEcologica(ancho=20,largo=1,horasDeSolPorDia=8)
+	const parcelaInd = new ParcelaIndustrial(ancho=20,largo=1,horasDeSolPorDia=8)
+	
+	//Menta
+	test "Menta de 1 metro da semillas" {
+	
+		assert.that(menta.daNuevasSemillas())
+
+	}
+
+	test "Menta de 1 metro ocupa 3 metros" {
+
+		assert.equals(menta.espacioQueOcupa(),3)
+
+	}
+	
+	//Soja
+	test "Soja de 0.6m y semilla de 2009, tolerancia al sol es 7" {
+
+		assert.equals(soja.horasDeSolToleradas(),7)
+
+	}
+	
+	test "Soja de 0.6m y semilla de 2009, no da semillas" {
+
+		assert.notThat(soja.daNuevasSemillas())
+
+	}
+	
+	test "Soja de 0.6m y semilla de 2009, ocupa 0.3 metros" {
+
+		assert.equals(soja.espacioQueOcupa(),0.3)
+
+	}
+	
+	//Quinoa
+	test "Quinoa que tolera 12 horas de sol y semilla de 2010, da semillas" {
+
+		assert.that(quinoa1.daNuevasSemillas())
+
+	}
+	
+	test "Quinoa que tolera 9 horas de sol y semilla de 2001, da semillas" {
+
+		assert.that(quinoa2.daNuevasSemillas())
+
+	}
+	
+	//Soja transgénica
+	test "Soja transgénica no da semillas" {
+
+		assert.notThat(sojaTrans.daNuevasSemillas())
+
+	}
+	
+	//Hierbabuena
+	test "Hierbabuena ocupa el doble de espacio que una menta de mismas características" {
+
+		assert.equals(hierbabuena.espacioQueOcupa(), menta.espacioQueOcupa()*2)
+
+	}
+	
+	//Parcelas ideales
+	test "Menta es ideal con parcela eco" {
+
+		assert.that(menta.esParcelaIdeal(parcelaEco))
+
+	}
+	
+	test "hierbabuena es ideal con parcela eco" {
+
+		assert.that(hierbabuena.esParcelaIdeal(parcelaEco))
+
+	}
+	
+	test "quinoa no es ideal con parcela eco" {
+
+		assert.notThat(quinoa1.esParcelaIdeal(parcelaEco))
+
+	}
+	
+	test "soja no es ideal con parcela eco" {
+
+		assert.notThat(soja.esParcelaIdeal(parcelaEco))
+
+	}
+	
+	test "soja transgénica no es ideal con parcela eco" {
+
+		assert.notThat(sojaTrans.esParcelaIdeal(parcelaEco))
+
+	}
+	
+	//Asociaciones
+	test "soja no se asocia bien con parcela eco" {
+
+		assert.notThat(soja.seAsociaBien(parcelaEco))
+
+	}
+	
+	test "soja no se asocia bien con parcela industrial" {
+
+		assert.notThat(soja.seAsociaBien(parcelaInd))
+
+	}
+}
