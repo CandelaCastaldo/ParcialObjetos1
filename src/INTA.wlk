@@ -1,3 +1,5 @@
+import parcelas.*
+
 object inta{
 	var property parcelas = #{}
 	
